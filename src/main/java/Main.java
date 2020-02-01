@@ -3,7 +3,10 @@ import com.hierynomus.smbj.auth.AuthenticationContext;
 import com.hierynomus.smbj.connection.Connection;
 import com.hierynomus.smbj.session.Session;
 import com.rapid7.client.dcerpc.mssrvs.ServerService;
-import com.rapid7.client.dcerpc.mssrvs.dto.NetShareInfo0;
+import com.rapid7.client.dcerpc.mssrvs.dto.*;
+import com.rapid7.client.dcerpc.msvcctl.ServiceControlManagerService;
+import com.rapid7.client.dcerpc.msvcctl.dto.ServiceHandle;
+import com.rapid7.client.dcerpc.msvcctl.dto.ServiceManagerHandle;
 import com.rapid7.client.dcerpc.transport.RPCTransport;
 import com.rapid7.client.dcerpc.transport.SMBTransportFactories;
 
@@ -13,17 +16,16 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-        final SMBClient smbClient = new SMBClient();
-        try (final Connection smbConnection = smbClient.connect("localhost")) {
-            final AuthenticationContext smbAuthenticationContext = new AuthenticationContext("username", "password".toCharArray(), "");
-            final Session session = smbConnection.authenticate(smbAuthenticationContext);
+        SMBClient smbClient = new SMBClient();
+        try (Connection smbConnection = smbClient.connect("localhost")) {
+            AuthenticationContext smbAuthenticationContext = new AuthenticationContext("user", "pass".toCharArray(), "");
+            Session session = smbConnection.authenticate(smbAuthenticationContext);
 
-            final RPCTransport transport = SMBTransportFactories.SRVSVC.getTransport(session);
-            final ServerService serverService = new ServerService(transport);
-            final List<NetShareInfo0> shares = serverService.getShares0();
-            for (final NetShareInfo0 share : shares) {
-                System.out.println(share);
-            }
+            RPCTransport t = SMBTransportFactories.SVCCTL.getTransport(session);
+            ServiceControlManagerService s = new ServiceControlManagerService(t);
+            ServiceManagerHandle handle = s.openServiceManagerHandle();
+            System.out.println(handle);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
