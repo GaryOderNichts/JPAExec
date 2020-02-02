@@ -92,8 +92,8 @@ public class Main {
             Settings settings = new Settings(null, false, false, false, true, false, 1, true, false, false, "pass", "user", true, "C:/Windows/system32/", false, 0x00000020, "cmd.exe", "-k echo Hello World", false, false, "C:/Temp/", false, "C:/", "C:/", myFileinfoList, myFileinfoList, 20);
             byte[] settingsData = settings.serializeData();
 
-            // each 4 represents a 4 byte DWORD
-            int totallenght = settingsData.length + 4 + 4 + 4 + 4;
+            // 2 represents a 2 byte WORD, each 4 represents a 4 byte DWORD
+            int totallenght = settingsData.length + 2 + 4 + 4 + 4;
             byte[] buffer = new byte[totallenght];
 
             int constructionIndex = 0;
