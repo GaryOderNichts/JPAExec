@@ -1,6 +1,7 @@
 package client.dcerpc.msvcctl;
 
 import client.dcerpc.msvcctl.messages.RCreateServiceWRequest;
+import client.dcerpc.msvcctl.messages.RDeleteServiceWRequest;
 import com.rapid7.client.dcerpc.msvcctl.ServiceControlManagerService;
 import com.rapid7.client.dcerpc.msvcctl.dto.ServiceHandle;
 import com.rapid7.client.dcerpc.msvcctl.dto.ServiceManagerHandle;
@@ -44,4 +45,8 @@ public class BetterServiceControlManagerService extends ServiceControlManagerSer
         return new ServiceHandle(callExpectSuccess(request, "RCreateServiceW").getHandle());
     }
 
+    public void deleteService(final ServiceHandle serviceHandle) throws IOException {
+        final RDeleteServiceWRequest request = new RDeleteServiceWRequest(serviceHandle.getBytes());
+        callExpectSuccess(request, "RDeleteServiceW");
+    }
 }
