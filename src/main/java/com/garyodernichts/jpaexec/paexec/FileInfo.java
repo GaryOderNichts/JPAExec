@@ -1,4 +1,4 @@
-package paexec;
+package com.garyodernichts.jpaexec.paexec;
 
 public class FileInfo {
     String filenameOnly;

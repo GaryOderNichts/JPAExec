@@ -1,4 +1,4 @@
-package client.dcerpc.msvcctl.messages;
+package com.garyodernichts.jpaexec.client.dcerp.msvcctl.messages;
 
 // INFO: code from https://github.com/rapid7/smbj-rpc/pull/136
 

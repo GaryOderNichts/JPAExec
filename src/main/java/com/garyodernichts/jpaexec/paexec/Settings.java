@@ -1,4 +1,4 @@
-package paexec;
+package com.garyodernichts.jpaexec.paexec;
 
 import com.sun.istack.internal.Nullable;
 
@@ -7,6 +7,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import com.garyodernichts.jpaexec.ByteHelper;
 
 public class Settings {
     int SERIALIZE_VER = 1;
@@ -99,12 +100,12 @@ public class Settings {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         DataOutputStream out = new DataOutputStream(stream);
 
-        out.writeInt(SERIALIZE_VER);
+        out.write(ByteHelper.makeDWORD(SERIALIZE_VER));
         boolean allowedProcessorsNull = allowedProcessors == null;
-        out.writeInt(allowedProcessorsNull ? 0 : allowedProcessors.size());
+        out.write(ByteHelper.makeDWORD(allowedProcessorsNull ? 0 : allowedProcessors.size()));
         if (!allowedProcessorsNull) {
             for (Short item : allowedProcessors) {
-                out.writeInt((int) item);
+                out.write(ByteHelper.makeDWORD((int) item));
             }
         }
         out.writeBoolean(bCopyFiles);
@@ -112,51 +113,51 @@ public class Settings {
         out.writeBoolean(bCopyIfNewerOrHigherVer);
         out.writeBoolean(bDontWaitForTerminate);
         out.writeBoolean(bDontLoadProfile);
-        out.writeInt(sessionToInteractWith);
+        out.write(ByteHelper.makeDWORD(sessionToInteractWith));
         out.writeBoolean(bInteractive);
         out.writeBoolean(bRunElevated);
         out.writeBoolean(bRunLimited);
-        out.writeInt(password.length());
+        out.write(ByteHelper.makeDWORD(password.length()));
         out.write(password.getBytes(StandardCharsets.UTF_16LE));
-        out.writeInt(user.length());
+        out.write(ByteHelper.makeDWORD(user.length()));
         out.write(user.getBytes(StandardCharsets.UTF_16LE));
         out.writeBoolean(bUseSystemAccount);
-        out.writeInt(workingDir.length());
+        out.write(ByteHelper.makeDWORD(workingDir.length()));
         out.write(workingDir.getBytes(StandardCharsets.UTF_16LE));
         out.writeBoolean(bShowUIOnWinLogon);
-        out.writeInt(priority);
-        out.writeInt(app.length());
+        out.write(ByteHelper.makeDWORD(priority));
+        out.write(ByteHelper.makeDWORD(app.length()));
         out.write(app.getBytes(StandardCharsets.UTF_16LE));
-        out.writeInt(appArgs.length());
+        out.write(ByteHelper.makeDWORD(appArgs.length()));
         out.write(appArgs.getBytes(StandardCharsets.UTF_16LE));
         out.writeBoolean(bDisableFileRedirection);
         out.writeBoolean(bODS);
-        out.writeInt(remoteLogPath.length());
+        out.write(ByteHelper.makeDWORD(remoteLogPath.length()));
         out.write(remoteLogPath.getBytes(StandardCharsets.UTF_16LE));
         out.writeBoolean(bNoDelete);
-        out.writeInt(srcDir.length());
+        out.write(ByteHelper.makeDWORD(srcDir.length()));
         out.write(srcDir.getBytes(StandardCharsets.UTF_16LE));
-        out.writeInt(destDir.length());
+        out.write(ByteHelper.makeDWORD(destDir.length()));
         out.write(destDir.getBytes(StandardCharsets.UTF_16LE));
-        out.writeInt(srcFileInfos.size());
+        out.write(ByteHelper.makeDWORD(srcFileInfos.size()));
         for(FileInfo fileInfo : srcFileInfos)
         {
             out.write(fileInfo.filenameOnly.getBytes(StandardCharsets.UTF_16LE));
-            out.writeInt(fileInfo.fileLastWrite_low);
-            out.writeInt(fileInfo.fileLastWrite_high);
-            out.writeInt(fileInfo.fileVersionLS);
-            out.writeInt(fileInfo.fileVersionMS);
+            out.write(ByteHelper.makeDWORD(fileInfo.fileLastWrite_low));
+            out.write(ByteHelper.makeDWORD(fileInfo.fileLastWrite_high));
+            out.write(ByteHelper.makeDWORD(fileInfo.fileVersionLS));
+            out.write(ByteHelper.makeDWORD(fileInfo.fileVersionMS));
         }
-        out.writeInt(destFileInfos.size());
+        out.write(ByteHelper.makeDWORD(destFileInfos.size()));
         for(FileInfo fileInfo : destFileInfos)
         {
             out.write(fileInfo.filenameOnly.getBytes(StandardCharsets.UTF_16LE));
-            out.writeInt(fileInfo.fileLastWrite_low);
-            out.writeInt(fileInfo.fileLastWrite_high);
-            out.writeInt(fileInfo.fileVersionLS);
-            out.writeInt(fileInfo.fileVersionMS);
+            out.write(ByteHelper.makeDWORD(fileInfo.fileLastWrite_low));
+            out.write(ByteHelper.makeDWORD(fileInfo.fileLastWrite_high));
+            out.write(ByteHelper.makeDWORD(fileInfo.fileVersionLS));
+            out.write(ByteHelper.makeDWORD(fileInfo.fileVersionMS));
         }
-        out.writeInt(timeoutSeconds);
+        out.write(ByteHelper.makeDWORD(timeoutSeconds));
 
         byte[] data = stream.toByteArray();
         stream.close();

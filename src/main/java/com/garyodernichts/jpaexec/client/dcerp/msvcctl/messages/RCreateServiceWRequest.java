@@ -1,4 +1,4 @@
-package client.dcerpc.msvcctl.messages;
+package com.garyodernichts.jpaexec.client.dcerp.msvcctl.messages;
 
 import com.rapid7.client.dcerpc.io.PacketOutput;
 import com.rapid7.client.dcerpc.io.ndr.Alignment;

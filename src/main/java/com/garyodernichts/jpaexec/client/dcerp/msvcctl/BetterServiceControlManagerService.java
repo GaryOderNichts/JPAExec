@@ -1,7 +1,7 @@
-package client.dcerpc.msvcctl;
+package com.garyodernichts.jpaexec.client.dcerp.msvcctl;
 
-import client.dcerpc.msvcctl.messages.RCreateServiceWRequest;
-import client.dcerpc.msvcctl.messages.RDeleteServiceWRequest;
+import com.garyodernichts.jpaexec.client.dcerp.msvcctl.messages.RCreateServiceWRequest;
+import com.garyodernichts.jpaexec.client.dcerp.msvcctl.messages.RDeleteServiceWRequest;
 import com.rapid7.client.dcerpc.msvcctl.ServiceControlManagerService;
 import com.rapid7.client.dcerpc.msvcctl.dto.ServiceHandle;
 import com.rapid7.client.dcerpc.msvcctl.dto.ServiceManagerHandle;
